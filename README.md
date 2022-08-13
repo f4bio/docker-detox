@@ -1,4 +1,4 @@
-# multi-arch container running Xteve
+# multi-arch container running detox
 
 Minim enim sit sit elit sint officia elit anim. Pariatur qui aliquip id et pariatur ullamco fugiat mollit. Deserunt laboris nulla aliqua minim Lorem nisi sint et nostrud qui voluptate sit. Est do do eu incididunt. Nisi officia proident sint commodo labore amet consequat velit et eiusmod excepteur. Magna amet et duis laboris cillum. Aute consequat fugiat ut cupidatat elit ex nisi enim laboris consectetur ad.
 
@@ -18,10 +18,10 @@ Normal build:
 ```bash
 docker build \
   --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
-  --build-arg APPLICATION_NAME=xteve \
+  --build-arg APPLICATION_NAME=detox \
   --build-arg BUILD_VERSION=v1.0 \
   --file Dockerfile \
-  --tag f4bio/xteve:latest \
+  --tag f4bio/detox:latest \
   --no-cache \
   .
 ```
@@ -30,12 +30,12 @@ Multiarch build:
 
 ```bash
 docker buildx build \
-  --platform linux/arm64,linux/amd64 \
+  --platform linux/arm/v7,linux/arm64,linux/amd64 \
   --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
-  --build-arg APPLICATION_NAME=xteve \
+  --build-arg APPLICATION_NAME=detox \
   --build-arg BUILD_VERSION=v1.0 \
   --file Dockerfile \
-  --tag f4bio/xteve:latest \
+  --tag f4bio/detox:latest \
   --no-cache \
   --push \
   .
@@ -43,8 +43,12 @@ docker buildx build \
 
 ### Run
 
+to detox all files in `$(pwd)/data` recursivly:
 
+```bash
+docker run --rm -v $(pwd)/data:/data f4bio/detox
+```
 
 ## Additional Resources / Information
 
-* `:34400`
+* [http://detox.sourceforge.net/](http://detox.sourceforge.net/)
