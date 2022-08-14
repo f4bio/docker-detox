@@ -17,9 +17,7 @@ RUN apt-get --yes install detox
 
 COPY detoxrc /detoxrc
 COPY iso8859_1.tbl /iso8859_1.tbl
-COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 WORKDIR /data
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
-# ENTRYPOINT ["detox", "-r", "-f", "/detoxrc", "*"]
+ENTRYPOINT ["detox", "-r", "-f", "/detoxrc", "*"]
