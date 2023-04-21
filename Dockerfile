@@ -1,4 +1,4 @@
-FROM --platform=$TARGETPLATFORM debian:buster-slim
+FROM debian:buster-slim
 
 ARG BUILD_VERSION
 ARG BUILD_DATE
@@ -12,12 +12,12 @@ LABEL org.label-schema.build-date=$BUILD_DATE
 LABEL org.label-schema.version=$BUILD_VERSION
 LABEL org.opencontainers.image.source="https://github.com/f4bio/docker-detox"
 
-RUN apt-get --yes update
-RUN apt-get --yes install detox
+RUN apt-get --quiet --yes update && apt-get --quiet --yes install detox
 
 COPY detoxrc /detoxrc
 COPY iso8859_1.tbl /iso8859_1.tbl
 
 WORKDIR /data
 
-ENTRYPOINT ["detox", "-r", "-f", "/detoxrc", "*"]
+ENTRYPOINT ["detox"]
+CMD ["-r", "-f", "/detoxrc", "*"]
