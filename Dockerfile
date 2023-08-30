@@ -12,12 +12,31 @@ LABEL org.label-schema.build-date=$BUILD_DATE
 LABEL org.label-schema.version=$BUILD_VERSION
 LABEL org.opencontainers.image.source="https://github.com/f4bio/docker-detox"
 
-RUN apt-get --quiet --yes update && apt-get --quiet --yes install detox
+RUN apt-get --quiet --yes update \
+  && apt-get --quiet --yes install \
+    wget \
+    curl \
+    autoconf \
+    automake \
+    bison \
+    flex \
+    gcc \
+    make \
+    pkg-config
 
-COPY detoxrc /detoxrc
-COPY iso8859_1.tbl /iso8859_1.tbl
+RUN wget https://github.com/dharple/detox/releases/download/v1.4.5/detox-1.4.5.tar.gz && \
+    tar -xzf detox-1.4.5.tar.gz && \
+    cd detox-1.4.5 && \
+    ./configure && \
+    make && \
+    make install && \
+    cd .. && \
+    rm -rf detox-1.4.5.tar.gz detox-1.4.5
+
+COPY detoxrc /app/detoxrc
+COPY iso8859_1.tbl /app/iso8859_1.tbl
 
 WORKDIR /data
 
 ENTRYPOINT ["detox"]
-CMD ["-r", "-f", "/detoxrc", "*"]
+CMD ["-r", "-f", "/app/detoxrc", "*"]

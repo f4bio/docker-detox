@@ -51,4 +51,4 @@ docker run --rm -v $(pwd)/data:/data f4bio/detox
 
 ## Additional Resources / Information
 
-* [http://detox.sourceforge.net/](http://detox.sourceforge.net/)
+* [github.com/dharple/detox](https://github.com/dharple/detox/)
